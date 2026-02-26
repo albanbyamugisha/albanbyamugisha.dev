@@ -261,23 +261,27 @@ const SkillsPills = ({ skills }: SkillsPillsProps) => {
             duration: 0.45,
             ease: [0.19, 1, 0.22, 1],
           }}
-          animate={{
-            boxShadow: [
-              "0 0 0 rgba(255,255,255,0)",
-              "0 0 18px rgba(248,250,252,0.25)",
-              "0 0 0 rgba(255,255,255,0)",
-            ],
-            opacity: [0.85, 1, 0.9],
-          }}
-          transition={{
-            delay: 0.4 + index * 0.12,
-            duration: 2.6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
         >
-          <span className="mr-1 h-1 w-1 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.9)]" />
-          {skill}
+          <motion.span
+            className="inline-flex items-center"
+            animate={{
+              boxShadow: [
+                "0 0 0 rgba(255,255,255,0)",
+                "0 0 18px rgba(248,250,252,0.25)",
+                "0 0 0 rgba(255,255,255,0)",
+              ],
+              opacity: [0.85, 1, 0.9],
+            }}
+            transition={{
+              delay: 0.4 + index * 0.12,
+              duration: 2.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <span className="mr-1 h-1 w-1 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.9)]" />
+            {skill}
+          </motion.span>
         </motion.span>
       ))}
     </div>

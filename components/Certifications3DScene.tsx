@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 
 type GroupRef = THREE.Group & {
@@ -118,7 +118,7 @@ const ParticleStream = () => {
 };
 
 const CircuitGrid = () => {
-  const lines: React.ReactElement[] = [];
+  const lines: JSX.Element[] = [];
   const size = 16;
   const step = 1.6;
 
