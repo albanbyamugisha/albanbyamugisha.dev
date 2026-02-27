@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import MatrixBackground from "@/components/MatrixBackground";
 import ProfileReveal from "@/components/ProfileReveal";
 import GitHubGraph from "@/components/GitHubGraph";
@@ -7,7 +6,6 @@ import LiveStatus from "@/components/LiveStatus";
 import EducationSection from "@/components/EducationSection";
 import CertificationsSection from "@/components/CertificationsSection";
 import SkillsSection from "@/components/SkillsSection";
-import ScrollSectionNav from "@/components/ScrollSectionNav";
 import {
   HERO_MISSION_PARAGRAPHS,
   CORE_VALUES,
@@ -20,7 +18,6 @@ export default function Home() {
   return (
     <div className="relative pb-16">
       <MatrixBackground />
-      <ScrollSectionNav />
 
       <section id="overview" className="relative z-10 scroll-mt-24">
         <div className="glass-panel gold-border overflow-hidden rounded-3xl px-5 py-6 md:px-8 md:py-8">

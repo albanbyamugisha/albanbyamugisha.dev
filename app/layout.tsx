@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AssistantRobot from "@/components/AssistantRobot";
+import ScrollSectionNav from "@/components/ScrollSectionNav";
 
 export const metadata: Metadata = {
   title: "Byamugisha Alban | Software Engineer Portfolio",
@@ -66,6 +67,7 @@ export default function RootLayout({
           <main className="mx-auto min-h-[calc(100vh-6rem)] max-w-6xl px-4 pt-10 lg:px-6">
             {children}
           </main>
+          <ScrollSectionNav />
           <Footer />
           <AssistantRobot />
         </ThemeProvider>
