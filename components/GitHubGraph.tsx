@@ -3,44 +3,69 @@
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GITHUB_USERNAME } from "@/lib/constants";
-import { fetchGithubActivity, GithubActivityDay, GithubRepo } from "@/lib/github";
+import {
+  fetchGithubActivityPayload,
+  GithubActivityDay,
+  GithubActivityItem,
+  GithubActivitySummary,
+  GithubRepo,
+} from "@/lib/github";
 
 const RECENT_REPOS_API_URL =
   "https://api.github.com/users/albanbyamugisha/repos?sort=updated&per_page=6&type=owner";
 
 const GitHubGraph = () => {
   const [activity, setActivity] = useState<GithubActivityDay[]>([]);
+  const [summary, setSummary] = useState<GithubActivitySummary>({
+    commits: 0,
+    pullRequests: 0,
+    issues: 0,
+  });
+  const [recent, setRecent] = useState<GithubActivityItem[]>([]);
   const [repos, setRepos] = useState<GithubRepo[]>([]);
   const [activityLoading, setActivityLoading] = useState(true);
+  const [activityError, setActivityError] = useState<string | null>(null);
   const [reposLoading, setReposLoading] = useState(true);
   const [reposError, setReposError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
+  const loadActivity = useCallback(async (signal?: AbortSignal) => {
+    setActivityLoading(true);
+    setActivityError(null);
 
-    const loadActivity = async () => {
-      try {
-        const data = await fetchGithubActivity(GITHUB_USERNAME);
-        if (!cancelled) {
-          setActivity(data);
-        }
-      } catch {
-        if (!cancelled) {
-          setActivity([]);
-        }
-      } finally {
-        if (!cancelled) {
-          setActivityLoading(false);
-        }
+    try {
+      const payload = await fetchGithubActivityPayload(GITHUB_USERNAME, 84);
+      if (signal?.aborted) return;
+      setActivity(payload.daily);
+      setSummary(payload.summary);
+      setRecent(payload.recent);
+      if (!payload.daily.length) {
+        setActivityError("Live activity is currently unavailable.");
       }
-    };
+    } catch {
+      if (signal?.aborted) return;
+      setActivity([]);
+      setSummary({ commits: 0, pullRequests: 0, issues: 0 });
+      setRecent([]);
+      setActivityError("Unable to load live contribution activity.");
+    } finally {
+      if (!signal?.aborted) {
+        setActivityLoading(false);
+      }
+    }
+  }, []);
 
-    void loadActivity();
+  useEffect(() => {
+    const controller = new AbortController();
+    void loadActivity(controller.signal);
+    const interval = window.setInterval(() => {
+      void loadActivity();
+    }, 60_000);
 
     return () => {
-      cancelled = true;
+      controller.abort();
+      window.clearInterval(interval);
     };
-  }, []);
+  }, [loadActivity]);
 
   const loadRepos = useCallback(async (signal?: AbortSignal) => {
     setReposLoading(true);
@@ -105,47 +130,98 @@ const GitHubGraph = () => {
           </div>
           <div className="text-[0.7rem] text-slate-400">@{GITHUB_USERNAME}</div>
         </div>
+        <div className="mb-4 grid grid-cols-3 gap-2 text-[0.65rem]">
+          <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 px-2 py-1.5">
+            <p className="uppercase tracking-[0.15em] text-slate-400">Commits</p>
+            <p className="mt-1 text-sm font-semibold text-emerald-300">
+              {summary.commits}
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 px-2 py-1.5">
+            <p className="uppercase tracking-[0.15em] text-slate-400">PRs</p>
+            <p className="mt-1 text-sm font-semibold text-cyan-300">
+              {summary.pullRequests}
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 px-2 py-1.5">
+            <p className="uppercase tracking-[0.15em] text-slate-400">Issues</p>
+            <p className="mt-1 text-sm font-semibold text-amber-300">
+              {summary.issues}
+            </p>
+          </div>
+        </div>
         <div className="mt-2">
           {activityLoading ? (
             <p className="text-xs text-slate-400">Loading live activity...</p>
-          ) : activity.length === 0 ? (
+          ) : activityError ? (
             <p className="text-xs text-slate-400">
-              Contribution data is not available at the moment. GitHub rate limits may apply.
+              {activityError}
             </p>
           ) : (
             <div className="overflow-x-auto pb-2">
-              <div className="flex min-w-max items-end gap-1 pr-1 sm:min-w-full">
-                {activity.map((day) => {
-                  const intensity = Math.min(day.count / 4, 1);
-                  const height = 16 + intensity * 56;
-                  const bg =
-                    intensity === 0
+              <div className="inline-grid grid-flow-col grid-rows-7 gap-1 pr-1">
+                {activity.map((day, index) => {
+                  const intensity = Math.min(day.count / 8, 1);
+                  const bgClass =
+                    day.count === 0
                       ? "bg-slate-800/70"
-                      : "bg-gradient-to-t from-amber-500 via-amber-300 to-yellow-200";
+                      : intensity < 0.3
+                        ? "bg-emerald-950"
+                        : intensity < 0.55
+                          ? "bg-emerald-800"
+                          : intensity < 0.8
+                            ? "bg-emerald-600"
+                            : "bg-emerald-400";
+
                   return (
                     <motion.div
                       key={day.date}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height, opacity: 1 }}
-                      transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] as const }}
-                      className={`relative w-2 rounded-full sm:w-2.5 ${bg} shadow-[0_0_22px_rgba(251,191,36,0.45)]`}
-                    >
-                      {day.count > 0 && (
-                        <span className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 text-[0.6rem] text-amber-100/80">
-                          {day.count}
-                        </span>
-                      )}
-                    </motion.div>
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        duration: 0.18,
+                        delay: Math.min(index * 0.005, 0.4),
+                        ease: [0.19, 1, 0.22, 1] as const,
+                      }}
+                      className={`h-3 w-3 rounded-[2px] ${bgClass} ring-1 ring-black/10`}
+                      title={`${day.date}: ${day.count} activities`}
+                      aria-label={`${day.date}: ${day.count} activities`}
+                    />
                   );
                 })}
               </div>
             </div>
           )}
         </div>
-        <p className="mt-4 text-xs leading-relaxed text-slate-300">
-          I treat open source and public repositories as an ongoing engineering journal.
-          Contributions reflect deliberate iterations toward cleaner, more resilient systems.
-        </p>
+        <div className="mt-4 space-y-2">
+          <p className="text-xs leading-relaxed text-slate-300">
+            Live public activity stream from GitHub for commits, pull requests, and issues.
+          </p>
+          {!activityLoading && recent.length > 0 && (
+            <ul className="space-y-1.5 text-[0.68rem] text-slate-300">
+              {recent.slice(0, 4).map((item) => (
+                <li key={item.id} className="rounded-lg border border-slate-700/70 bg-slate-900/60 px-2 py-1.5">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between gap-2 hover:text-amber-200"
+                  >
+                    <span className="min-w-0 truncate">
+                      <span className="mr-1 uppercase tracking-[0.12em] text-slate-400">
+                        {item.type.replace("_", " ")}
+                      </span>
+                      {item.action} in {item.repo}
+                    </span>
+                    <span className="shrink-0 text-[0.62rem] text-slate-500">
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       <div className="glass-panel gold-border rounded-3xl p-5">
