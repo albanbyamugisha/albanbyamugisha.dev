@@ -1,46 +1,92 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GITHUB_USERNAME } from "@/lib/constants";
-import {
-  fetchGithubActivity,
-  fetchGithubRepos,
-  GithubActivityDay,
-  GithubRepo,
-} from "@/lib/github";
+import { fetchGithubActivity, GithubActivityDay, GithubRepo } from "@/lib/github";
+
+const RECENT_REPOS_API_URL =
+  "https://api.github.com/users/albanbyamugisha/repos?sort=updated&per_page=6&type=owner";
 
 const GitHubGraph = () => {
   const [activity, setActivity] = useState<GithubActivityDay[]>([]);
   const [repos, setRepos] = useState<GithubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [activityLoading, setActivityLoading] = useState(true);
+  const [reposLoading, setReposLoading] = useState(true);
+  const [reposError, setReposError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    const load = async () => {
+
+    const loadActivity = async () => {
       try {
-        const [a, r] = await Promise.all([
-          fetchGithubActivity(GITHUB_USERNAME),
-          fetchGithubRepos(GITHUB_USERNAME, 6),
-        ]);
+        const data = await fetchGithubActivity(GITHUB_USERNAME);
         if (!cancelled) {
-          setActivity(a);
-          setRepos(r);
+          setActivity(data);
         }
       } catch {
         if (!cancelled) {
           setActivity([]);
-          setRepos([]);
         }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setActivityLoading(false);
+        }
       }
     };
-    load();
+
+    void loadActivity();
+
     return () => {
       cancelled = true;
     };
   }, []);
+
+  const loadRepos = useCallback(async (signal?: AbortSignal) => {
+    setReposLoading(true);
+    setReposError(null);
+
+    try {
+      const response = await fetch(RECENT_REPOS_API_URL, {
+        signal,
+        headers: {
+          Accept: "application/vnd.github+json",
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 403) {
+          throw new Error("GitHub API rate limit reached. Please try again shortly.");
+        }
+        throw new Error("Unable to load repositories right now.");
+      }
+
+      const data = (await response.json()) as GithubRepo[];
+      const normalized = data
+        .filter((repo) => Boolean(repo?.html_url && repo?.name))
+        .slice(0, 6);
+
+      setRepos(normalized);
+    } catch (error) {
+      if (signal?.aborted) return;
+      setRepos([]);
+      setReposError(
+        error instanceof Error
+          ? error.message
+          : "Unable to load repositories right now.",
+      );
+    } finally {
+      if (!signal?.aborted) {
+        setReposLoading(false);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    void loadRepos(controller.signal);
+    return () => controller.abort();
+  }, [loadRepos]);
 
   return (
     <section
@@ -57,17 +103,14 @@ const GitHubGraph = () => {
               Recent GitHub Contributions
             </h3>
           </div>
-          <div className="text-[0.7rem] text-slate-400">
-            @{GITHUB_USERNAME}
-          </div>
+          <div className="text-[0.7rem] text-slate-400">@{GITHUB_USERNAME}</div>
         </div>
         <div className="mt-2">
-          {loading ? (
-            <p className="text-xs text-slate-400">Loading live activityâ€¦</p>
+          {activityLoading ? (
+            <p className="text-xs text-slate-400">Loading live activity...</p>
           ) : activity.length === 0 ? (
             <p className="text-xs text-slate-400">
-              Contribution data is not available at the moment. GitHub rate
-              limits may apply.
+              Contribution data is not available at the moment. GitHub rate limits may apply.
             </p>
           ) : (
             <div className="overflow-x-auto pb-2">
@@ -100,24 +143,28 @@ const GitHubGraph = () => {
           )}
         </div>
         <p className="mt-4 text-xs leading-relaxed text-slate-300">
-          I treat open source and public repositories as an ongoing engineering
-          journalâ€”capturing experiments, reusable patterns, and learnings that
-          others can build on. Contributions reflect more than commits; they
-          represent deliberate iterations toward cleaner, more resilient
-          systems.
+          I treat open source and public repositories as an ongoing engineering journal.
+          Contributions reflect deliberate iterations toward cleaner, more resilient systems.
         </p>
       </div>
 
       <div className="glass-panel gold-border rounded-3xl p-5">
-        <h3 className="mb-3 text-sm font-semibold text-slate-50">
-          Recent Repositories
-        </h3>
-        {loading ? (
-          <p className="text-xs text-slate-400">Fetching repositoriesâ€¦</p>
+        <h3 className="mb-3 text-sm font-semibold text-slate-50">Recent Repositories</h3>
+        {reposLoading ? (
+          <p className="text-xs text-slate-400">Fetching repositories...</p>
+        ) : reposError ? (
+          <div className="space-y-2">
+            <p className="text-xs text-rose-300">{reposError}</p>
+            <button
+              type="button"
+              onClick={() => void loadRepos()}
+              className="rounded-full border border-amber-300/50 bg-slate-900/70 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-amber-100 transition-colors hover:border-amber-200 hover:text-amber-50"
+            >
+              Retry
+            </button>
+          </div>
         ) : repos.length === 0 ? (
-          <p className="text-xs text-slate-400">
-            No repositories could be loaded at this time.
-          </p>
+          <p className="text-xs text-slate-400">No repositories could be loaded at this time.</p>
         ) : (
           <ul className="space-y-3 text-xs">
             {repos.map((repo) => (
@@ -131,21 +178,14 @@ const GitHubGraph = () => {
                   rel="noreferrer"
                   className="flex flex-col gap-1"
                 >
-                  <span className="flex items-center justify-between gap-2">
-                    <span className="font-medium text-slate-50 group-hover:text-amber-200">
-                      {repo.name}
-                    </span>
-                    <span className="text-[0.65rem] text-slate-400">
-                      {repo.language ?? "Mixed"}
-                    </span>
+                  <span className="font-medium text-slate-50 group-hover:text-amber-200">
+                    {repo.name}
                   </span>
-                  {repo.description && (
-                    <span className="text-[0.72rem] text-slate-300">
-                      {repo.description}
-                    </span>
-                  )}
+                  <span className="text-[0.72rem] text-slate-300">
+                    {repo.description ?? "No description provided."}
+                  </span>
                   <span className="text-[0.65rem] text-amber-200/80">
-                    â˜… {repo.stargazers_count}
+                    Stars: {repo.stargazers_count}
                   </span>
                 </a>
               </li>
@@ -158,4 +198,3 @@ const GitHubGraph = () => {
 };
 
 export default GitHubGraph;
-

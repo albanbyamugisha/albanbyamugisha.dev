@@ -1,6 +1,6 @@
 export const SITE_URL = "https://www.albanbyamugisha.dev";
 
-export const GITHUB_USERNAME = "albanbyaugisha";
+export const GITHUB_USERNAME = "albanbyamugisha";
 
 export const PROFILE = {
   name: "Byamugisha Alban",
