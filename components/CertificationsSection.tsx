@@ -1,19 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import AnimatedText from "./AnimatedText";
-
-const Certifications3DScene = dynamic(
-  () => import("./Certifications3DScene"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="cert-3d-skeleton" aria-hidden="true" />
-    ),
-  },
-);
 
 type CertificationCategory = "ai" | "communication" | "programming";
 
@@ -312,8 +301,6 @@ const CertificationsSection = () => {
       ref={sectionRef}
       className="cert-section relative mt-20 scroll-mt-24"
     >
-      <Certifications3DScene />
-
       <motion.button
         type="button"
         aria-label="Scroll to Licenses & Certifications section"
