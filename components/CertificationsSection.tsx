@@ -335,7 +335,7 @@ const CertificationsSection = () => {
         <span className="cert-nav-dot-inner" />
       </motion.button>
 
-      <div className="glass-panel gold-border cert-panel rounded-3xl px-5 py-6 md:px-8 md:py-8">
+      <div className="glass-panel gold-border cert-panel rounded-3xl px-4 py-5 sm:px-5 sm:py-6 md:px-8 md:py-8">
         <div className="cert-grid-overlay" aria-hidden="true" />
 
         <motion.header
@@ -365,7 +365,7 @@ const CertificationsSection = () => {
                 repeatDelay: 6,
               }}
             >
-              <span className="relative inline-block text-gradient-gold">
+              <span className="relative inline-block max-w-full text-gradient-gold">
                 Proof of continuous learning in code, AI, and communication.
               </span>
             </motion.h2>
@@ -376,7 +376,7 @@ const CertificationsSection = () => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-[0.7rem] sm:grid-cols-4 sm:gap-3 md:max-w-md">
+          <div className="grid w-full grid-cols-2 gap-2 text-[0.7rem] sm:grid-cols-4 sm:gap-3 md:max-w-md">
             <AnimatedCounter
               label="Total"
               value={stats.total}
@@ -404,7 +404,7 @@ const CertificationsSection = () => {
         </motion.header>
 
         <motion.div
-          className="relative mt-7 grid gap-4 md:mt-9 md:grid-cols-2 lg:gap-5"
+          className="relative mt-6 grid gap-3.5 sm:mt-7 sm:gap-4 md:mt-9 md:grid-cols-2 lg:gap-5"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -432,7 +432,7 @@ const CertificationsSection = () => {
                       prev === cert.id ? null : cert.id,
                     )
                   }
-                  className="tilt-card relative flex w-full flex-col items-stretch overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-950/80 p-4 text-left text-[0.72rem] text-slate-200 shadow-[0_22px_60px_rgba(0,0,0,0.9)] md:p-5"
+                  className="tilt-card relative flex w-full flex-col items-stretch overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3.5 text-left text-[0.72rem] text-slate-200 shadow-[0_22px_60px_rgba(0,0,0,0.9)] sm:p-4 md:p-5"
                   whileHover={{
                     boxShadow:
                       "0 28px 80px rgba(0,0,0,0.95), 0 0 80px rgba(129, 230, 217, 0.35)",
@@ -445,7 +445,7 @@ const CertificationsSection = () => {
                   <div className="pointer-events-none absolute inset-px rounded-2xl border border-transparent bg-[radial-gradient(circle_at_0%_0%,rgba(248,250,252,0.18),transparent_55%),radial-gradient(circle_at_100%_100%,rgba(45,212,191,0.35),transparent_55%)] opacity-0 mix-blend-screen blur-[0.3px] transition-opacity duration-400 group-hover:opacity-100" />
                   <div className="pointer-events-none absolute -inset-x-16 -top-16 h-24 translate-y-8 bg-[radial-gradient(circle_at_0%_0%,rgba(56,189,248,0.4),transparent_50%),radial-gradient(circle_at_100%_0%,rgba(251,191,36,0.45),transparent_55%)] opacity-0 blur-3xl transition-all duration-600 group-hover:translate-y-0 group-hover:opacity-80" />
 
-                  <div className="relative flex items-start justify-between gap-3">
+                  <div className="relative flex flex-col gap-2.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                     <div>
                       <p className="text-[0.62rem] uppercase tracking-[0.25em] text-emerald-300/90">
                         {cert.date}
@@ -458,7 +458,7 @@ const CertificationsSection = () => {
                       </p>
                     </div>
                     <motion.div
-                      className="flex flex-col items-end gap-1 text-[0.6rem] uppercase tracking-[0.18em]"
+                      className="flex flex-row items-center justify-between gap-2 text-[0.58rem] uppercase tracking-[0.15em] sm:flex-col sm:items-end sm:gap-1 sm:text-[0.6rem] sm:tracking-[0.18em]"
                       initial={{ opacity: 0, y: -6 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.6 }}
@@ -468,7 +468,7 @@ const CertificationsSection = () => {
                         ease: [0.19, 1, 0.22, 1] as const,
                       }}
                     >
-                      <span className="rounded-full bg-slate-900/80 px-2 py-0.5 text-emerald-200">
+                      <span className="max-w-full truncate rounded-full bg-slate-900/80 px-2 py-0.5 text-emerald-200 sm:max-w-[12rem]">
                         {cert.categories.join(" Â· ")}
                       </span>
                       <span className="flex items-center gap-1 text-slate-400 group-hover:text-amber-100/90">

@@ -975,6 +975,22 @@ html[data-theme="gold"] {
   }
 
   @media (max-width: 639px) {
+    .cert-3d-wrapper {
+      inset: -12px;
+    }
+
+    .cert-3d-gradient-overlay {
+      opacity: 0.45;
+    }
+
+    .cert-3d-noise-overlay {
+      opacity: 0.14;
+    }
+
+    .cert-grid-overlay {
+      opacity: 0.3;
+    }
+
     .scroll-nav--mobile {
       bottom: 4.9rem;
     }
