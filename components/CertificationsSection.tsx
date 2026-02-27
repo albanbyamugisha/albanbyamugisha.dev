@@ -224,7 +224,7 @@ const AnimatedCounter = ({
       viewport={{ once: true, amount: 0.6 }}
       transition={{
         duration: 0.5,
-        ease: [0.19, 1, 0.22, 1],
+        ease: [0.19, 1, 0.22, 1] as const,
         delay,
       }}
     >
@@ -259,7 +259,7 @@ const SkillsPills = ({ skills }: SkillsPillsProps) => {
           transition={{
             delay: 0.15 + index * 0.05,
             duration: 0.45,
-            ease: [0.19, 1, 0.22, 1],
+            ease: [0.19, 1, 0.22, 1] as const,
           }}
         >
           <motion.span
@@ -330,7 +330,7 @@ const CertificationsSection = () => {
           scale: inView ? 1 : 0.9,
           x: 0,
         }}
-        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] as const }}
       >
         <span className="cert-nav-dot-inner" />
       </motion.button>
@@ -343,7 +343,7 @@ const CertificationsSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.45 }}
-          transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+          transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] as const }}
         >
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-100/80">
@@ -370,7 +370,7 @@ const CertificationsSection = () => {
               </span>
             </motion.h2>
             <AnimatedText
-              text="Each certification is a checkpoint in how I sharpen my engineering, AI, and communication skills—with a focus on practical impact, not just badges."
+              text="Each certification is a checkpoint in how I sharpen my engineering, AI, and communication skillsâ€”with a focus on practical impact, not just badges."
               className="mt-3 max-w-xl text-xs leading-relaxed text-slate-200 md:text-[0.8rem]"
               delay={0.35}
             />
@@ -421,7 +421,7 @@ const CertificationsSection = () => {
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{
                   duration: 0.7,
-                  ease: [0.19, 1, 0.22, 1],
+                  ease: [0.19, 1, 0.22, 1] as const,
                   delay: 0.1 + index * 0.04,
                 }}
               >
@@ -439,7 +439,7 @@ const CertificationsSection = () => {
                   }}
                   transition={{
                     duration: 0.28,
-                    ease: [0.19, 1, 0.22, 1],
+                    ease: [0.19, 1, 0.22, 1] as const,
                   }}
                 >
                   <div className="pointer-events-none absolute inset-px rounded-2xl border border-transparent bg-[radial-gradient(circle_at_0%_0%,rgba(248,250,252,0.18),transparent_55%),radial-gradient(circle_at_100%_100%,rgba(45,212,191,0.35),transparent_55%)] opacity-0 mix-blend-screen blur-[0.3px] transition-opacity duration-400 group-hover:opacity-100" />
@@ -465,11 +465,11 @@ const CertificationsSection = () => {
                       transition={{
                         delay: 0.2 + index * 0.04,
                         duration: 0.4,
-                        ease: [0.19, 1, 0.22, 1],
+                        ease: [0.19, 1, 0.22, 1] as const,
                       }}
                     >
                       <span className="rounded-full bg-slate-900/80 px-2 py-0.5 text-emerald-200">
-                        {cert.categories.join(" · ")}
+                        {cert.categories.join(" Â· ")}
                       </span>
                       <span className="flex items-center gap-1 text-slate-400 group-hover:text-amber-100/90">
                         <span className="h-[1px] w-5 bg-gradient-to-r from-emerald-300/80 via-amber-200/80 to-transparent" />
@@ -488,7 +488,7 @@ const CertificationsSection = () => {
                     }}
                     transition={{
                       duration: 0.4,
-                      ease: [0.19, 1, 0.22, 1],
+                      ease: [0.19, 1, 0.22, 1] as const,
                     }}
                   >
                     <p className="line-clamp-2 md:line-clamp-3">
@@ -501,7 +501,7 @@ const CertificationsSection = () => {
                     </p>
                     {isExpanded && (
                       <p className="text-[0.68rem] text-slate-400">
-                        Expanding reveals the skills tags in motion—each
+                        Expanding reveals the skills tags in motionâ€”each
                         representing a capability I deliberately practiced,
                         not just read about.
                       </p>

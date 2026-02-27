@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   motion,
   AnimatePresence,
@@ -506,7 +507,7 @@ const AssistantRobot = () => {
             initial={{ opacity: 0, y: 10, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.96 }}
-            transition={{ duration: 0.25, ease: [0.19, 1, 0.22, 1] }}
+            transition={{ duration: 0.25, ease: [0.19, 1, 0.22, 1] as const }}
             className="glass-panel albanai-panel relative flex w-[20rem] max-w-[90vw] flex-col rounded-2xl px-3.5 py-3 text-xs text-slate-100 shadow-[0_16px_40px_rgba(0,0,0,0.9)] sm:px-4 sm:py-4"
           >
             <div className="mb-2 flex items-center justify-between gap-2">
@@ -540,7 +541,7 @@ const AssistantRobot = () => {
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   transition={{
                     duration: 0.25,
-                    ease: [0.19, 1, 0.22, 1],
+                    ease: [0.19, 1, 0.22, 1] as const,
                   }}
                 >
                   <div
@@ -550,7 +551,32 @@ const AssistantRobot = () => {
                         : "bg-slate-900/85 text-slate-100"
                     }`}
                   >
-                    {message.content}
+                    {message.role === "assistant" && (
+                      <div className="mb-2 flex items-center gap-2">
+                        <div className="relative h-8 w-8 shrink-0">
+                          <Image
+                            src="/images/albanbyamugisha.png"
+                            alt="Alban bot avatar"
+                            fill
+                            sizes="32px"
+                            className="rounded-full object-cover shadow-[0_4px_14px_rgba(0,0,0,0.35)] ring-1 ring-emerald-300/30"
+                          />
+                        </div>
+                        <div className="min-w-0 leading-tight">
+                          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-slate-100/95">
+                            Alban (Bot)
+                          </p>
+                          <div className="mt-0.5 flex items-center gap-1.5 text-[0.6rem] text-emerald-300/90">
+                            <span className="relative inline-flex h-2 w-2">
+                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+                              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(74,222,128,0.9)]" />
+                            </span>
+                            <span>Online</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <p>{message.content}</p>
                   </div>
                 </motion.div>
               ))}

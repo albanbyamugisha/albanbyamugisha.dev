@@ -96,7 +96,7 @@ const SocialLinks = ({ variant = "full" }: SocialLinksProps) => {
             transition={{
               delay: 0.03 * index,
               duration: 0.3,
-              ease: [0.19, 1, 0.22, 1],
+              ease: [0.19, 1, 0.22, 1] as const,
             }}
             className="group relative flex h-8 w-8 items-center justify-center rounded-full bg-slate-900/80 text-slate-200 shadow-[0_0_25px_rgba(0,0,0,0.7)] ring-1 ring-amber-300/40 backdrop-blur-md"
           >

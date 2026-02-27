@@ -183,7 +183,7 @@ const SKILLS: Skill[] = [
     level: 89,
     emphasis: "secondary",
     description:
-      "Following the data, not assumptions—especially when debugging or designing critical flows.",
+      "Following the data, not assumptionsâ€”especially when debugging or designing critical flows.",
   },
   {
     id: "technical-presentation",
@@ -281,7 +281,7 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
       }
       transition={{
         duration: 0.65,
-        ease: [0.19, 1, 0.22, 1],
+        ease: [0.19, 1, 0.22, 1] as const,
         delay: 0.08 + index * 0.03,
       }}
       layout
@@ -299,7 +299,7 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
           scale: 1.02,
           y: -4,
         }}
-        transition={{ duration: 0.22, ease: [0.19, 1, 0.22, 1] }}
+        transition={{ duration: 0.22, ease: [0.19, 1, 0.22, 1] as const }}
       >
         <div className="pointer-events-none absolute inset-px rounded-2xl border border-transparent bg-[radial-gradient(circle_at_0%_0%,rgba(248,250,252,0.18),transparent_55%),radial-gradient(circle_at_100%_100%,rgba(56,189,248,0.3),transparent_55%)] opacity-0 mix-blend-screen blur-[0.3px] transition-opacity duration-400 group-hover:opacity-100" />
 
@@ -314,7 +314,7 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
               transition={{
                 delay: 0.1 + index * 0.04,
                 duration: 0.35,
-                ease: [0.19, 1, 0.22, 1],
+                ease: [0.19, 1, 0.22, 1] as const,
               }}
             >
               <Icon className="h-4 w-4" />
@@ -350,7 +350,7 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
             transition={{
               duration: 0.8,
               delay: 0.18 + index * 0.04,
-              ease: [0.19, 1, 0.22, 1],
+              ease: [0.19, 1, 0.22, 1] as const,
             }}
           />
         </motion.div>
@@ -362,7 +362,7 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
           }}
           transition={{
             duration: 0.3,
-            ease: [0.19, 1, 0.22, 1],
+            ease: [0.19, 1, 0.22, 1] as const,
           }}
         >
           <p className="line-clamp-2 md:line-clamp-3">
@@ -453,7 +453,7 @@ const SkillsSection = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] as const }}
             >
               Technical Expertise
             </motion.p>
@@ -462,7 +462,7 @@ const SkillsSection = () => {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] as const }}
               whileHover={{ textShadow: "0 0 24px rgba(251,191,36,0.9)" }}
             >
               <span className="typing-heading text-gradient-gold">
@@ -474,7 +474,7 @@ const SkillsSection = () => {
               initial={{ scaleX: 0, transformOrigin: "left" }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.7 }}
-              transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] as const }}
             />
             <AnimatedText
               text="This is the layer where Java, Git, AI fundamentals, and human communication meet to deliver reliable software."
@@ -500,7 +500,7 @@ const SkillsSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
+                  transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] as const }}
                 >
                   {ROTATING_KEYWORDS[keywordIndex]}
                 </motion.span>
@@ -540,7 +540,7 @@ const SkillsSection = () => {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+          transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] as const }}
         >
           {(["industry", "tools", "analytical"] as SkillCategory[]).map(
             (category) => (

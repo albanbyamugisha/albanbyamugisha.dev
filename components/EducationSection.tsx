@@ -82,7 +82,7 @@ const headerVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.19, 1, 0.22, 1],
+      ease: [0.19, 1, 0.22, 1] as const,
     },
   },
 };
@@ -95,7 +95,7 @@ const cardVariants = {
     scale: 1,
     transition: {
       duration: 0.7,
-      ease: [0.19, 1, 0.22, 1],
+      ease: [0.19, 1, 0.22, 1] as const,
     },
   },
 };
@@ -107,7 +107,7 @@ const chipVariants = {
     y: 0,
     transition: {
       duration: 0.45,
-      ease: [0.19, 1, 0.22, 1],
+      ease: [0.19, 1, 0.22, 1] as const,
     },
   },
 };
@@ -190,7 +190,7 @@ const EducationSection = () => {
                     transition={{
                       delay: 0.25 + index * 0.06,
                       duration: 0.4,
-                      ease: [0.19, 1, 0.22, 1],
+                      ease: [0.19, 1, 0.22, 1] as const,
                     }}
                   >
                     {item.tag}

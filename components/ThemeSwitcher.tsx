@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import { useThemeMode } from "@/context/ThemeContext";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { RiVipCrown2Line } from "react-icons/ri";
 
 const modeIconMap: Record<
   ReturnType<typeof useThemeMode>["mode"],
-  JSX.Element
+  ReactNode
 > = {
   gold: <RiVipCrown2Line className="h-4 w-4 text-amber-300" />,
   dark: <FiMoon className="h-4 w-4 text-slate-100" />,

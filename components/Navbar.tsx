@@ -28,7 +28,7 @@ const itemVariants = {
     transition: {
       delay: 0.06 * index,
       duration: 0.35,
-      ease: [0.19, 1, 0.22, 1],
+      ease: [0.19, 1, 0.22, 1] as const,
     },
   }),
 };
@@ -47,7 +47,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.08, rotate: 2 }}
             transition={{
               duration: 3.6,
-              ease: [0.19, 1, 0.22, 1],
+              ease: [0.19, 1, 0.22, 1] as const,
               repeat: Infinity,
               repeatDelay: 1.6,
             }}

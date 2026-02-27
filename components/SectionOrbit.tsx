@@ -37,7 +37,7 @@ const SectionOrbit = ({ label, items }: SectionOrbitProps) => {
             className="pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.08 * index, duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+            transition={{ delay: 0.08 * index, duration: 0.4, ease: [0.19, 1, 0.22, 1] as const }}
             style={{
               transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
             }}

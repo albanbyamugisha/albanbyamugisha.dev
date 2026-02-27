@@ -17,7 +17,7 @@ const ProfileReveal = () => {
           filter: "blur(0px)",
         }}
         whileHover={{ scale: 1.04, rotate: 1.2 }}
-        transition={{ duration: 0.55, ease: [0.19, 1, 0.22, 1] }}
+        transition={{ duration: 0.55, ease: [0.19, 1, 0.22, 1] as const }}
       >
         <motion.div
           className="glass-panel relative flex h-full w-full overflow-hidden rounded-[1.35rem] bg-slate-950/80"
@@ -40,7 +40,7 @@ const ProfileReveal = () => {
               transition={{
                 duration: 3.2,
                 repeat: Infinity,
-                ease: [0.19, 1, 0.22, 1],
+                ease: [0.19, 1, 0.22, 1] as const,
               }}
             />
           </motion.div>
@@ -61,20 +61,20 @@ const ProfileReveal = () => {
         className="space-y-3 md:space-y-4"
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+        transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] as const, delay: 0.2 }}
       >
         <AnimatedText
           text="Byamugisha Alban"
           className="text-3xl font-semibold tracking-tight text-gradient-gold md:text-4xl"
         />
         <p className="max-w-xl text-sm leading-relaxed text-slate-200">
-          I design and develop secure, scalable, and user‑centric software
-          systems—bridging high‑level architecture with precise front‑end
+          I design and develop secure, scalable, and userâ€‘centric software
+          systemsâ€”bridging highâ€‘level architecture with precise frontâ€‘end
           execution. Every interface, API, and deployment pipeline is treated as
           part of a cohesive engineering story.
         </p>
         <p className="text-xs uppercase tracking-[0.2em] text-amber-100/80">
-          Software Engineer · System Design · Frontend Architecture · DevSecOps
+          Software Engineer Â· System Design Â· Frontend Architecture Â· DevSecOps
         </p>
       </motion.div>
     </div>

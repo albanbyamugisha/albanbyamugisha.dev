@@ -14,20 +14,20 @@ const Footer = () => {
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+            transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] as const }}
             className="text-[0.74rem] uppercase tracking-[0.18em] text-amber-100/80"
           >
             Engineering the next generation of secure, intelligent systems.
           </motion.p>
           <p>
-            © {year} Byamugisha Alban. Crafted with a gold-standard engineering
+            Â© {year} Byamugisha Alban. Crafted with a gold-standard engineering
             mindset.
           </p>
         </div>
         <div className="flex flex-col items-start gap-2 md:items-end">
           <SocialLinks variant="full" />
           <p className="text-[0.7rem] text-slate-500">
-            Western Region, Uganda · Available for remote and hybrid
+            Western Region, Uganda Â· Available for remote and hybrid
             engagements.
           </p>
         </div>

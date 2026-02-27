@@ -63,7 +63,7 @@ const GitHubGraph = () => {
         </div>
         <div className="mt-2">
           {loading ? (
-            <p className="text-xs text-slate-400">Loading live activity…</p>
+            <p className="text-xs text-slate-400">Loading live activityâ€¦</p>
           ) : activity.length === 0 ? (
             <p className="text-xs text-slate-400">
               Contribution data is not available at the moment. GitHub rate
@@ -83,7 +83,7 @@ const GitHubGraph = () => {
                     key={day.date}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height, opacity: 1 }}
-                    transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
+                    transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] as const }}
                     className={`relative w-2.5 rounded-full ${bg} shadow-[0_0_22px_rgba(251,191,36,0.45)]`}
                   >
                     {day.count > 0 && (
@@ -99,7 +99,7 @@ const GitHubGraph = () => {
         </div>
         <p className="mt-4 text-xs leading-relaxed text-slate-300">
           I treat open source and public repositories as an ongoing engineering
-          journal—capturing experiments, reusable patterns, and learnings that
+          journalâ€”capturing experiments, reusable patterns, and learnings that
           others can build on. Contributions reflect more than commits; they
           represent deliberate iterations toward cleaner, more resilient
           systems.
@@ -111,7 +111,7 @@ const GitHubGraph = () => {
           Recent Repositories
         </h3>
         {loading ? (
-          <p className="text-xs text-slate-400">Fetching repositories…</p>
+          <p className="text-xs text-slate-400">Fetching repositoriesâ€¦</p>
         ) : repos.length === 0 ? (
           <p className="text-xs text-slate-400">
             No repositories could be loaded at this time.
@@ -143,7 +143,7 @@ const GitHubGraph = () => {
                     </span>
                   )}
                   <span className="text-[0.65rem] text-amber-200/80">
-                    ★ {repo.stargazers_count}
+                    â˜… {repo.stargazers_count}
                   </span>
                 </a>
               </li>

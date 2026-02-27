@@ -17,6 +17,11 @@ const SECTIONS: SectionConfig[] = [
   { id: "certifications", label: "Certs", variant: "certifications" },
 ];
 
+const isIntersectingHTMLElement = (
+  entry: IntersectionObserverEntry,
+): entry is IntersectionObserverEntry & { target: HTMLElement } =>
+  entry.isIntersecting && entry.target instanceof HTMLElement;
+
 const ScrollSectionNav = () => {
   const [activeId, setActiveId] = useState<string>("overview");
 
@@ -25,17 +30,17 @@ const ScrollSectionNav = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        let bestEntry: IntersectionObserverEntry | null = null;
+        let bestEntry: (IntersectionObserverEntry & { target: HTMLElement }) | null = null;
 
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        for (const entry of entries) {
+          if (!isIntersectingHTMLElement(entry)) continue;
           if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
             bestEntry = entry;
           }
-        });
+        }
 
         if (bestEntry) {
-          const id = (bestEntry.target as HTMLElement).id;
+          const { id } = bestEntry.target;
           if (id && id !== activeId) {
             setActiveId(id);
           }
@@ -75,7 +80,7 @@ const ScrollSectionNav = () => {
               data-section={section.variant}
               data-active={isActive}
               whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.18, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.18, ease: [0.19, 1, 0.22, 1] as const }}
             >
               <span className="scroll-nav-label">{section.label}</span>
               <span className="scroll-nav-orbit" />
