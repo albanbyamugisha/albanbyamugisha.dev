@@ -13,27 +13,46 @@ const MatrixBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const frameInterval = prefersReducedMotion ? 110 : isCoarsePointer ? 70 : 40;
+
     let width = window.innerWidth;
     let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    let resizeFrame = 0;
+    let lastFrameTime = 0;
 
-    const fontSize = 16;
+    const setCanvasSize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, isCoarsePointer ? 1 : 1.4);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    setCanvasSize();
+
+    const fontSize = isCoarsePointer ? 14 : 16;
     let columns = Math.floor(width / fontSize);
     let drops = Array.from({ length: columns }, () => Math.random() * -20);
 
     const characters = "01ΛΣΞΦΩΔ∴∵<>/|{}[]#&$@";
 
     const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      columns = Math.floor(width / fontSize);
-      drops = Array.from({ length: columns }, () => Math.random() * -20);
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(() => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        setCanvasSize();
+        columns = Math.floor(width / fontSize);
+        drops = Array.from({ length: columns }, () => Math.random() * -20);
+      });
     };
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
     const onVisibilityChange = () => {
       activeRef.current = document.visibilityState === "visible";
@@ -72,9 +91,12 @@ const MatrixBackground = () => {
       }
     };
 
-    const loop = () => {
+    const loop = (timestamp = 0) => {
       if (!activeRef.current) return;
-      draw();
+      if (timestamp - lastFrameTime >= frameInterval) {
+        draw();
+        lastFrameTime = timestamp;
+      }
       animationRef.current = window.requestAnimationFrame(loop);
     };
 
@@ -82,6 +104,7 @@ const MatrixBackground = () => {
 
     return () => {
       activeRef.current = false;
+      window.cancelAnimationFrame(resizeFrame);
       if (animationRef.current !== null) {
         window.cancelAnimationFrame(animationRef.current);
       }

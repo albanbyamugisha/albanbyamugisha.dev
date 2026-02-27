@@ -33,6 +33,7 @@
 
   --transition-soft: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-premium: cubic-bezier(0.19, 1, 0.22, 1);
+  --scroll-offset: 6.75rem;
 }
 
 html[data-theme="light"] {
@@ -159,6 +160,12 @@ html[data-theme="gold"] {
     overflow-x: clip;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--scroll-offset);
+    text-size-adjust: 100%;
+  }
+
   body {
     margin: 0;
     min-height: 100vh;
@@ -167,11 +174,28 @@ html[data-theme="gold"] {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
       "SF Pro Display", ui-sans-serif, sans-serif;
     background-attachment: fixed;
+    overscroll-behavior-y: none;
+    scrollbar-gutter: stable;
+  }
+
+  [id] {
+    scroll-margin-top: var(--scroll-offset);
   }
 
   ::selection {
     background: rgba(212, 175, 55, 0.3);
     color: #f9fafb;
+  }
+
+  @media (max-width: 767px) {
+    :root {
+      --scroll-offset: 6.25rem;
+    }
+
+    body {
+      /* Avoid mobile paint jank caused by fixed background attachment. */
+      background-attachment: scroll;
+    }
   }
 }
 
@@ -297,6 +321,8 @@ html[data-theme="gold"] {
     inset: 0;
     z-index: -2;
     pointer-events: none;
+    will-change: transform;
+    contain: strict;
   }
 
   .portrait-glow {
@@ -879,6 +905,8 @@ html[data-theme="gold"] {
     max-width: min(92vw, 32rem);
     overflow-x: auto;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
   }
 
   .scroll-nav--mobile::-webkit-scrollbar {

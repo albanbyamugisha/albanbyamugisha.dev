@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -32,6 +32,7 @@ const ScrollSectionNav = () => {
   const pathname = usePathname();
   const [sections, setSections] = useState<SectionConfig[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const activeIdRef = useRef<string>("");
 
   useEffect(() => {
     const main = document.querySelector("main");
@@ -72,7 +73,12 @@ const ScrollSectionNav = () => {
   }, [pathname]);
 
   useEffect(() => {
+    activeIdRef.current = activeId;
+  }, [activeId]);
+
+  useEffect(() => {
     if (!sections.length) return;
+    let frame = 0;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -80,11 +86,19 @@ const ScrollSectionNav = () => {
           .filter(isIntersectingHTMLElement)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         const bestEntry = visible[0];
-        if (bestEntry?.target.id) {
-          setActiveId(bestEntry.target.id);
+        const nextId = bestEntry?.target.id;
+        if (nextId && nextId !== activeIdRef.current) {
+          window.cancelAnimationFrame(frame);
+          frame = window.requestAnimationFrame(() => {
+            setActiveId(nextId);
+          });
         }
       },
-      { root: null, threshold: [0.25, 0.5, 0.75] },
+      {
+        root: null,
+        rootMargin: "-96px 0px -35% 0px",
+        threshold: [0.2, 0.45, 0.7],
+      },
     );
 
     sections.forEach((section) => {
@@ -92,13 +106,27 @@ const ScrollSectionNav = () => {
       if (el) observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, [sections]);
 
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
     if (!element) return;
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const header = document.querySelector("header");
+    const offset = (header instanceof HTMLElement ? header.offsetHeight : 0) + 12;
+    const top = element.getBoundingClientRect().top + window.scrollY - offset;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   };
 
   if (!sections.length) return null;
