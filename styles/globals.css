@@ -333,11 +333,18 @@ html[data-theme="gold"] {
   .cert-section {
     position: relative;
     isolation: isolate;
+    z-index: 0;
   }
 
   .cert-panel {
     position: relative;
     overflow: hidden;
+    z-index: 1;
+  }
+
+  .cert-panel > :not(.cert-grid-overlay) {
+    position: relative;
+    z-index: 1;
   }
 
   .cert-3d-wrapper {
@@ -345,8 +352,8 @@ html[data-theme="gold"] {
     inset: -24px;
     border-radius: var(--radius-2xl);
     overflow: hidden;
-    z-index: -1;
-    pointer-events: auto;
+    z-index: 0;
+    pointer-events: none;
     background:
       radial-gradient(
         circle at top,
@@ -397,6 +404,7 @@ html[data-theme="gold"] {
   .cert-grid-overlay {
     position: absolute;
     inset: -40%;
+    z-index: 0;
     background-image:
       linear-gradient(
         rgba(51, 65, 85, 0.35) 1px,
