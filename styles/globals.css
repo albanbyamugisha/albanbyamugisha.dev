@@ -983,20 +983,40 @@ html[data-theme="gold"] {
   }
 
   @media (max-width: 639px) {
+    .cert-panel {
+      overflow: visible;
+    }
+
+    .cert-section .cert-header,
+    .cert-section .cert-stats,
+    .cert-section .cert-cards,
+    .cert-section .cert-card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .cert-section .cert-card {
+      animation: none;
+    }
+
+    .cert-section .cert-card-button {
+      transform: none !important;
+    }
+
     .cert-3d-wrapper {
       inset: -12px;
     }
 
     .cert-3d-gradient-overlay {
-      opacity: 0.45;
+      opacity: 0.7;
     }
 
     .cert-3d-noise-overlay {
-      opacity: 0.14;
+      opacity: 0.22;
     }
 
     .cert-grid-overlay {
-      opacity: 0.3;
+      opacity: 0.45;
     }
 
     .scroll-nav--mobile {

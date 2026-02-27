@@ -326,7 +326,7 @@ const CertificationsSection = () => {
         <div className="cert-grid-overlay" aria-hidden="true" />
 
         <motion.header
-          className="relative flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          className="cert-header relative flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.45 }}
@@ -363,7 +363,7 @@ const CertificationsSection = () => {
             />
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-2 text-[0.7rem] sm:grid-cols-4 sm:gap-3 md:max-w-md">
+          <div className="cert-stats grid w-full grid-cols-2 gap-2 text-[0.7rem] sm:grid-cols-4 sm:gap-3 md:max-w-md">
             <AnimatedCounter
               label="Total"
               value={stats.total}
@@ -391,7 +391,7 @@ const CertificationsSection = () => {
         </motion.header>
 
         <motion.div
-          className="relative mt-6 grid gap-3.5 sm:mt-7 sm:gap-4 md:mt-9 md:grid-cols-2 lg:gap-5"
+          className="cert-cards relative mt-6 grid gap-3.5 sm:mt-7 sm:gap-4 md:mt-9 md:grid-cols-2 lg:gap-5"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -402,7 +402,7 @@ const CertificationsSection = () => {
             return (
               <motion.article
                 key={cert.id}
-                className="group float-slow"
+                className="cert-card group float-slow"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
@@ -419,7 +419,7 @@ const CertificationsSection = () => {
                       prev === cert.id ? null : cert.id,
                     )
                   }
-                  className="tilt-card relative flex w-full flex-col items-stretch overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3.5 text-left text-[0.72rem] text-slate-200 shadow-[0_22px_60px_rgba(0,0,0,0.9)] sm:p-4 md:p-5"
+                  className="cert-card-button tilt-card relative flex w-full flex-col items-stretch overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3.5 text-left text-[0.72rem] text-slate-200 shadow-[0_22px_60px_rgba(0,0,0,0.9)] sm:p-4 md:p-5"
                   whileHover={{
                     boxShadow:
                       "0 28px 80px rgba(0,0,0,0.95), 0 0 80px rgba(129, 230, 217, 0.35)",
