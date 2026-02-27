@@ -64,7 +64,7 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="grain-overlay" />
           <Navbar />
-          <main className="mx-auto min-h-[calc(100vh-6rem)] max-w-6xl px-4 pt-10 lg:px-6">
+          <main className="mx-auto min-h-[calc(100vh-6rem)] w-full max-w-[88rem] px-4 pb-6 pt-8 sm:px-5 md:px-6 lg:px-8 xl:px-10">
             {children}
           </main>
           <ScrollSectionNav />

@@ -499,7 +499,7 @@ const AssistantRobot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-4 z-40 flex flex-col items-end gap-2 sm:right-6">
+    <div className="fixed bottom-20 right-3 z-50 flex flex-col items-end gap-2 sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -508,7 +508,7 @@ const AssistantRobot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.19, 1, 0.22, 1] as const }}
-            className="glass-panel albanai-panel relative flex w-[20rem] max-w-[90vw] flex-col rounded-2xl px-3.5 py-3 text-xs text-slate-100 shadow-[0_16px_40px_rgba(0,0,0,0.9)] sm:px-4 sm:py-4"
+            className="glass-panel albanai-panel relative flex w-[19rem] max-w-[92vw] flex-col rounded-2xl px-3 py-3 text-xs text-slate-100 shadow-[0_16px_40px_rgba(0,0,0,0.9)] sm:w-[20rem] sm:px-4 sm:py-4"
           >
             <div className="mb-2 flex items-center justify-between gap-2">
               <p className="text-[0.7rem] uppercase tracking-[0.22em] text-amber-100/80">
@@ -629,7 +629,7 @@ const AssistantRobot = () => {
       <motion.button
         type="button"
         onClick={handleToggleAssistant}
-        className={`assistant-icon relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black text-amber-200 shadow-[0_18px_40px_rgba(0,0,0,0.9)] ring-1 ring-amber-300/40 ${
+        className={`assistant-icon relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black text-amber-200 shadow-[0_18px_40px_rgba(0,0,0,0.9)] ring-1 ring-amber-300/40 sm:h-12 sm:w-12 ${
           hasNewFromAssistant ? "assistant-icon--notify" : ""
         }`}
         animate={{

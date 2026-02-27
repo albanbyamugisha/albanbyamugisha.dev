@@ -153,6 +153,12 @@ html[data-theme="gold"] {
     box-sizing: border-box;
   }
 
+  html,
+  body {
+    width: 100%;
+    overflow-x: clip;
+  }
+
   body {
     margin: 0;
     min-height: 100vh;
@@ -929,6 +935,25 @@ html[data-theme="gold"] {
     box-shadow:
       0 0 10px rgba(251, 191, 36, 1),
       0 0 20px rgba(250, 204, 21, 0.9);
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .tilt-card:hover {
+      transform: none;
+      box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.85),
+        0 0 40px rgba(212, 175, 55, 0.2);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .scroll-nav--mobile {
+      bottom: 4.9rem;
+    }
+
+    .cert-nav-dot {
+      display: none;
+    }
   }
 
   @media (max-width: 767px) {

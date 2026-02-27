@@ -34,7 +34,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="mt-4 flex flex-col items-end gap-4 md:mt-0 md:w-60">
+            <div className="mt-4 flex flex-col items-start gap-4 md:mt-0 md:w-60 md:items-end">
               <LiveStatus />
               <div className="rounded-2xl border border-amber-300/50 bg-slate-950/80 px-3 py-2 text-[0.72rem] text-amber-50 shadow-[0_16px_40px_rgba(0,0,0,0.85)]">
                 <p className="uppercase tracking-[0.2em] text-amber-200/90">

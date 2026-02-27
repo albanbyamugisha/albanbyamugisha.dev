@@ -45,7 +45,7 @@ const GitHubGraph = () => {
   return (
     <section
       id="activity"
-      className="mt-16 scroll-mt-24 grid gap-8 md:grid-cols-[1.4fr_minmax(0,1fr)]"
+      className="mt-16 grid gap-8 scroll-mt-24 lg:grid-cols-[1.4fr_minmax(0,1fr)]"
     >
       <div className="glass-panel gold-border relative overflow-hidden rounded-3xl p-5">
         <div className="mb-4 flex items-center justify-between gap-4">
@@ -70,30 +70,32 @@ const GitHubGraph = () => {
               limits may apply.
             </p>
           ) : (
-            <div className="flex items-end gap-1">
-              {activity.map((day) => {
-                const intensity = Math.min(day.count / 4, 1);
-                const height = 16 + intensity * 56;
-                const bg =
-                  intensity === 0
-                    ? "bg-slate-800/70"
-                    : "bg-gradient-to-t from-amber-500 via-amber-300 to-yellow-200";
-                return (
-                  <motion.div
-                    key={day.date}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height, opacity: 1 }}
-                    transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] as const }}
-                    className={`relative w-2.5 rounded-full ${bg} shadow-[0_0_22px_rgba(251,191,36,0.45)]`}
-                  >
-                    {day.count > 0 && (
-                      <span className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 text-[0.6rem] text-amber-100/80">
-                        {day.count}
-                      </span>
-                    )}
-                  </motion.div>
-                );
-              })}
+            <div className="overflow-x-auto pb-2">
+              <div className="flex min-w-max items-end gap-1 pr-1 sm:min-w-full">
+                {activity.map((day) => {
+                  const intensity = Math.min(day.count / 4, 1);
+                  const height = 16 + intensity * 56;
+                  const bg =
+                    intensity === 0
+                      ? "bg-slate-800/70"
+                      : "bg-gradient-to-t from-amber-500 via-amber-300 to-yellow-200";
+                  return (
+                    <motion.div
+                      key={day.date}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height, opacity: 1 }}
+                      transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] as const }}
+                      className={`relative w-2 rounded-full sm:w-2.5 ${bg} shadow-[0_0_22px_rgba(251,191,36,0.45)]`}
+                    >
+                      {day.count > 0 && (
+                        <span className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 text-[0.6rem] text-amber-100/80">
+                          {day.count}
+                        </span>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
