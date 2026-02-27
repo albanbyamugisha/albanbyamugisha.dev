@@ -1003,6 +1003,19 @@ html[data-theme="gold"] {
       transform: none !important;
     }
 
+    .cert-panel-graph {
+      padding-bottom: 0.4rem;
+    }
+
+    .cert-panel-graph-grid {
+      gap: 0.22rem;
+    }
+
+    .cert-panel-graph-cell {
+      width: 0.55rem;
+      height: 0.55rem;
+    }
+
     .cert-3d-wrapper {
       inset: -12px;
     }
@@ -1032,6 +1045,31 @@ html[data-theme="gold"] {
     .scroll-nav--desktop {
       display: none;
     }
+  }
+
+  .cert-panel-graph {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 1rem;
+    padding: 0.35rem 0.1rem 0.5rem;
+    background: radial-gradient(
+      circle at 12% 0%,
+      rgba(15, 23, 42, 0.7),
+      rgba(2, 6, 23, 0.65) 45%,
+      rgba(15, 23, 42, 0.7) 100%
+    );
+  }
+
+  .cert-panel-graph-grid {
+    width: max-content;
+    min-width: 100%;
+    justify-content: space-between;
+    gap: 0.28rem;
+  }
+
+  .cert-panel-graph-cell {
+    width: 0.7rem;
+    height: 0.7rem;
   }
 
   @media (min-width: 768px) {

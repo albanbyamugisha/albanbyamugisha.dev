@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { GITHUB_USERNAME } from "@/lib/constants";
 import {
   fetchGithubActivityPayload,
   GithubActivityDay,
   GithubActivityItem,
+  GithubCommitItem,
   GithubActivitySummary,
   GithubRepo,
 } from "@/lib/github";
@@ -22,11 +23,18 @@ const GitHubGraph = () => {
     issues: 0,
   });
   const [recent, setRecent] = useState<GithubActivityItem[]>([]);
+  const [recentCommits, setRecentCommits] = useState<GithubCommitItem[]>([]);
+  const [contributions, setContributions] = useState<GithubActivityDay[]>([]);
+  const [contributionsTotal, setContributionsTotal] = useState(0);
   const [repos, setRepos] = useState<GithubRepo[]>([]);
   const [activityLoading, setActivityLoading] = useState(true);
   const [activityError, setActivityError] = useState<string | null>(null);
   const [reposLoading, setReposLoading] = useState(true);
   const [reposError, setReposError] = useState<string | null>(null);
+  const [contributionsLoading, setContributionsLoading] = useState(true);
+  const [contributionsError, setContributionsError] = useState<string | null>(
+    null,
+  );
 
   const loadActivity = useCallback(async (signal?: AbortSignal) => {
     setActivityLoading(true);
@@ -38,6 +46,7 @@ const GitHubGraph = () => {
       setActivity(payload.daily);
       setSummary(payload.summary);
       setRecent(payload.recent);
+      setRecentCommits(payload.recentCommits);
       if (!payload.daily.length) {
         setActivityError("Live activity is currently unavailable.");
       }
@@ -46,6 +55,7 @@ const GitHubGraph = () => {
       setActivity([]);
       setSummary({ commits: 0, pullRequests: 0, issues: 0 });
       setRecent([]);
+      setRecentCommits([]);
       setActivityError("Unable to load live contribution activity.");
     } finally {
       if (!signal?.aborted) {
@@ -54,18 +64,51 @@ const GitHubGraph = () => {
     }
   }, []);
 
+  const loadContributions = useCallback(async (signal?: AbortSignal) => {
+    setContributionsLoading(true);
+    setContributionsError(null);
+
+    try {
+      const response = await fetch("/api/github/contributions", { signal });
+      if (!response.ok) {
+        throw new Error("Unable to load contributions right now.");
+      }
+      const data = (await response.json()) as {
+        days: GithubActivityDay[];
+        total: number;
+      };
+      if (signal?.aborted) return;
+      setContributions(data.days ?? []);
+      setContributionsTotal(data.total ?? 0);
+      if (!data.days?.length) {
+        setContributionsError("No contribution data available.");
+      }
+    } catch {
+      if (signal?.aborted) return;
+      setContributions([]);
+      setContributionsTotal(0);
+      setContributionsError("Unable to load contributions right now.");
+    } finally {
+      if (!signal?.aborted) {
+        setContributionsLoading(false);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const controller = new AbortController();
     void loadActivity(controller.signal);
+    void loadContributions(controller.signal);
     const interval = window.setInterval(() => {
       void loadActivity();
+      void loadContributions();
     }, 60_000);
 
     return () => {
       controller.abort();
       window.clearInterval(interval);
     };
-  }, [loadActivity]);
+  }, [loadActivity, loadContributions]);
 
   const loadRepos = useCallback(async (signal?: AbortSignal) => {
     setReposLoading(true);
@@ -113,6 +156,16 @@ const GitHubGraph = () => {
     return () => controller.abort();
   }, [loadRepos]);
 
+  const graphDays = useMemo(
+    () => (contributions.length ? contributions : activity),
+    [activity, contributions],
+  );
+
+  const graphLoading =
+    graphDays.length === 0 && (contributionsLoading || activityLoading);
+  const graphError =
+    graphDays.length === 0 ? contributionsError ?? activityError : null;
+
   return (
     <section
       id="activity"
@@ -130,7 +183,15 @@ const GitHubGraph = () => {
           </div>
           <div className="text-[0.7rem] text-slate-400">@{GITHUB_USERNAME}</div>
         </div>
-        <div className="mb-4 grid grid-cols-3 gap-2 text-[0.65rem]">
+        <div className="mb-4 grid grid-cols-2 gap-2 text-[0.65rem] sm:grid-cols-4">
+          <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 px-2 py-1.5">
+            <p className="uppercase tracking-[0.15em] text-slate-400">
+              Contributions
+            </p>
+            <p className="mt-1 text-sm font-semibold text-amber-200">
+              {contributionsTotal}
+            </p>
+          </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/70 px-2 py-1.5">
             <p className="uppercase tracking-[0.15em] text-slate-400">Commits</p>
             <p className="mt-1 text-sm font-semibold text-emerald-300">
@@ -150,17 +211,15 @@ const GitHubGraph = () => {
             </p>
           </div>
         </div>
-        <div className="mt-2">
-          {activityLoading ? (
+        <div className="mt-3">
+          {graphLoading ? (
             <p className="text-xs text-slate-400">Loading live activity...</p>
-          ) : activityError ? (
-            <p className="text-xs text-slate-400">
-              {activityError}
-            </p>
+          ) : graphError ? (
+            <p className="text-xs text-slate-400">{graphError}</p>
           ) : (
-            <div className="overflow-x-auto pb-2">
-              <div className="inline-grid grid-flow-col grid-rows-7 gap-1 pr-1">
-                {activity.map((day, index) => {
+            <div className="cert-panel-graph overflow-x-auto pb-2">
+              <div className="cert-panel-graph-grid inline-grid grid-flow-col grid-rows-7 gap-1 pr-1">
+                {graphDays.map((day, index) => {
                   const intensity = Math.min(day.count / 8, 1);
                   const bgClass =
                     day.count === 0
@@ -183,7 +242,7 @@ const GitHubGraph = () => {
                         delay: Math.min(index * 0.005, 0.4),
                         ease: [0.19, 1, 0.22, 1] as const,
                       }}
-                      className={`h-3 w-3 rounded-[2px] ${bgClass} ring-1 ring-black/10`}
+                      className={`cert-panel-graph-cell rounded-[3px] ${bgClass} ring-1 ring-black/10`}
                       title={`${day.date}: ${day.count} activities`}
                       aria-label={`${day.date}: ${day.count} activities`}
                     />
@@ -195,8 +254,40 @@ const GitHubGraph = () => {
         </div>
         <div className="mt-4 space-y-2">
           <p className="text-xs leading-relaxed text-slate-300">
-            Live public activity stream from GitHub for commits, pull requests, and issues.
+            Live GitHub contributions (last 12 months) plus recent public activity for commits, pull requests, and issues.
           </p>
+          {!activityLoading && recentCommits.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-[0.68rem] uppercase tracking-[0.16em] text-slate-400">
+                Latest commits
+              </p>
+              <ul className="space-y-1.5 text-[0.68rem] text-slate-300">
+                {recentCommits.slice(0, 4).map((commit) => (
+                  <li
+                    key={commit.id}
+                    className="rounded-lg border border-slate-700/70 bg-slate-900/60 px-2 py-1.5"
+                  >
+                    <a
+                      href={commit.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between gap-2 hover:text-amber-200"
+                    >
+                      <span className="min-w-0 truncate">
+                        <span className="mr-1 uppercase tracking-[0.12em] text-slate-400">
+                          {commit.repo}
+                        </span>
+                        {commit.message}
+                      </span>
+                      <span className="shrink-0 text-[0.62rem] text-slate-500">
+                        {new Date(commit.createdAt).toLocaleDateString()}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {!activityLoading && recent.length > 0 && (
             <ul className="space-y-1.5 text-[0.68rem] text-slate-300">
               {recent.slice(0, 4).map((item) => (

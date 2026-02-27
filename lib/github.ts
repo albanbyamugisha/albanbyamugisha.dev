@@ -27,10 +27,20 @@ export type GithubActivityItem = {
   url: string;
 };
 
+export type GithubCommitItem = {
+  id: string;
+  repo: string;
+  message: string;
+  createdAt: string;
+  url: string;
+  sha: string;
+};
+
 export type GithubActivityPayload = {
   daily: GithubActivityDay[];
   summary: GithubActivitySummary;
   recent: GithubActivityItem[];
+  recentCommits: GithubCommitItem[];
 };
 
 type GithubPublicEvent = {
@@ -42,7 +52,7 @@ type GithubPublicEvent = {
   };
   payload?: {
     action?: string;
-    commits?: Array<{ sha?: string }>;
+    commits?: Array<{ sha?: string; message?: string; url?: string }>;
     pull_request?: { html_url?: string };
     issue?: { html_url?: string };
     ref_type?: string;
@@ -127,6 +137,7 @@ export async function fetchGithubActivityPayload(
       daily: [],
       summary: { commits: 0, pullRequests: 0, issues: 0 },
       recent: [],
+      recentCommits: [],
     };
   }
 
@@ -138,6 +149,7 @@ export async function fetchGithubActivityPayload(
     issues: 0,
   };
   const recent: GithubActivityItem[] = [];
+  const recentCommits: GithubCommitItem[] = [];
 
   const today = new Date();
   for (let i = 0; i < days; i += 1) {
@@ -161,6 +173,21 @@ export async function fetchGithubActivityPayload(
       delta = Math.max(1, commitCount);
       type = "commit";
       action = `${commitCount} commit${commitCount === 1 ? "" : "s"} pushed`;
+      if (event.payload?.commits?.length) {
+        for (const commit of event.payload.commits) {
+          if (!commit?.sha || recentCommits.length >= 6) continue;
+          recentCommits.push({
+            id: `${event.id}-${commit.sha}`,
+            repo: event.repo?.name ?? username,
+            message: commit.message ?? "Commit pushed",
+            createdAt: event.created_at,
+            url:
+              commit.url?.replace("api.github.com/repos", "github.com").replace("/commits/", "/commit/") ??
+              `https://github.com/${event.repo?.name ?? username}/commit/${commit.sha}`,
+            sha: commit.sha,
+          });
+        }
+      }
     } else if (event.type === "PullRequestEvent") {
       summary.pullRequests += 1;
       delta = 2;
@@ -197,6 +224,6 @@ export async function fetchGithubActivityPayload(
     .map(([date, count]) => ({ date, count }))
     .sort((a, b) => (a.date < b.date ? -1 : 1));
 
-  return { daily, summary, recent };
+  return { daily, summary, recent, recentCommits };
 }
 
