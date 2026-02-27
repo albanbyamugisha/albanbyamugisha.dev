@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import ThemeSwitcher from "./ThemeSwitcher";
 import LiveStatus from "./LiveStatus";
-import SocialLinks from "./SocialLinks";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -118,9 +117,6 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block">
             <ThemeSwitcher />
-          </div>
-          <div className="hidden lg:block">
-            <SocialLinks variant="compact" />
           </div>
         </div>
       </div>
