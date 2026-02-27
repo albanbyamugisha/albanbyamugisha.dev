@@ -1,4 +1,5 @@
 import MatrixBackground from "@/components/MatrixBackground";
+import IntroBoomImage from "@/components/IntroBoomImage";
 import ProfileReveal from "@/components/ProfileReveal";
 import GitHubGraph from "@/components/GitHubGraph";
 import AnimatedText from "@/components/AnimatedText";
@@ -18,6 +19,10 @@ export default function Home() {
   return (
     <div className="relative pb-16">
       <MatrixBackground />
+
+      <section className="relative z-10 mb-10">
+        <IntroBoomImage />
+      </section>
 
       <section id="overview" className="relative z-10 scroll-mt-24">
         <div className="glass-panel gold-border overflow-hidden rounded-3xl px-5 py-6 md:px-8 md:py-8">
