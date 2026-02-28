@@ -28,18 +28,19 @@ const LiveStatus = () => {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] as const }}
-      className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-slate-900/80 px-2.5 py-1 text-[0.7rem] text-emerald-100 shadow-[0_12px_30px_rgba(0,0,0,0.7)] backdrop-blur-md"
+      className="inline-flex items-center rounded-full bg-gradient-to-r from-emerald-400/60 via-cyan-300/40 to-emerald-400/60 p-[1px] shadow-[0_0_22px_rgba(34,197,94,0.35),0_16px_40px_rgba(3,7,18,0.65)]"
     >
-      <span className="relative flex h-2.5 w-2.5">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/80 opacity-60" />
-        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(34,197,94,0.9)]" />
-      </span>
-      <span className="uppercase tracking-[0.16em] text-emerald-100/80">
-        Live Â· Western Uganda Â· {time || "..."}
-      </span>
+      <div className="inline-flex items-center gap-2 rounded-full bg-slate-950/60 px-3 py-1.5 text-[0.7rem] sm:text-[0.75rem] text-emerald-50/90 backdrop-blur-xl">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70 opacity-50" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(34,197,94,0.9)]" />
+        </span>
+        <span className="font-['Orbitron'] uppercase tracking-[0.18em] text-emerald-50/85">
+          Live | Western Uganda | {time || "..."}
+        </span>
+      </div>
     </motion.div>
   );
 };
 
 export default LiveStatus;
-
