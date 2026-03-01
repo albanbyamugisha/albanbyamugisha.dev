@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -68,13 +68,13 @@ const ProfileReveal = () => {
           className="text-3xl font-semibold tracking-tight text-gradient-gold md:text-4xl"
         />
         <p className="max-w-xl text-sm leading-relaxed text-slate-200">
-          I design and develop secure, scalable, and userâ€‘centric software
-          systemsâ€”bridging highâ€‘level architecture with precise frontâ€‘end
+          I design and develop secure, scalable, and user-centric software
+          systems-bridging high-level architecture with precise front-end
           execution. Every interface, API, and deployment pipeline is treated as
           part of a cohesive engineering story.
         </p>
         <p className="text-xs uppercase tracking-[0.2em] text-amber-100/80">
-          Software Engineer Â· System Design Â· Frontend Architecture Â· DevSecOps
+          Software Engineer · System Design · Frontend Architecture · DevSecOps
         </p>
       </motion.div>
     </div>
