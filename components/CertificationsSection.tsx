@@ -221,7 +221,7 @@ const AnimatedCounter = ({
         {label}
       </span>
       <span
-        className={`bg-gradient-to-r ${accentClass} bg-clip-text text-xl font-semibold text-transparent`}
+        className={`bg-linear-to-r ${accentClass} bg-clip-text text-xl font-semibold text-transparent`}
       >
         {displayValue.toString().padStart(2, "0")}
       </span>
@@ -455,11 +455,11 @@ const CertificationsSection = () => {
                         ease: [0.19, 1, 0.22, 1] as const,
                       }}
                     >
-                      <span className="max-w-full truncate rounded-full bg-slate-900/80 px-2 py-0.5 text-emerald-200 sm:max-w-[12rem]">
-                        {cert.categories.join(" Â· ")}
+                      <span className="max-w-full truncate rounded-full bg-slate-900/80 px-2 py-0.5 text-emerald-200 sm:max-w-48">
+                        {cert.categories.join(" · ")}
                       </span>
                       <span className="flex items-center gap-1 text-slate-400 group-hover:text-amber-100/90">
-                        <span className="h-[1px] w-5 bg-gradient-to-r from-emerald-300/80 via-amber-200/80 to-transparent" />
+                        <span className="h-px w-5 bg-linear-to-r from-emerald-300/80 via-amber-200/80 to-transparent" />
                         {isExpanded ? "Collapse" : "Expand"}
                       </span>
                     </motion.div>

@@ -20,14 +20,14 @@ const Footer = () => {
             Engineering the next generation of secure, intelligent systems.
           </motion.p>
           <p>
-            Â© {year} Byamugisha Alban. Crafted with a gold-standard engineering
+            © {year} Byamugisha Alban. Crafted with a gold-standard engineering
             mindset.
           </p>
         </div>
         <div className="flex flex-col items-start gap-2 md:items-end">
           <SocialLinks variant="full" />
           <p className="text-[0.7rem] text-slate-500">
-            Western Region, Uganda Â· Available for remote and hybrid
+            Western Region, Uganda · Available for remote and hybrid
             engagements.
           </p>
         </div>
