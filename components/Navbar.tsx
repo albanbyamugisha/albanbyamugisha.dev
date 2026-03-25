@@ -41,10 +41,10 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-800/70 bg-slate-950/75 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[88rem] items-center justify-between gap-4 px-4 py-3 sm:px-5 md:px-6 lg:px-8 xl:px-10">
+      <div className="mx-auto flex w-full max-w-352 items-center justify-between gap-4 px-4 py-3 sm:px-5 md:px-6 lg:px-8 xl:px-10">
         <div className="flex items-center gap-3">
           <motion.div
-            className="gold-border relative h-11 w-11 overflow-hidden rounded-2xl bg-gradient-to-br from-amber-300/90 via-amber-500/90 to-yellow-500/90 shadow-[0_0_45px_rgba(245,215,110,0.9)] sm:h-12 sm:w-12 md:h-14 md:w-14 md:rounded-3xl"
+            className="gold-border relative h-11 w-11 overflow-hidden rounded-2xl bg-linear-to-br from-amber-300/90 via-amber-500/90 to-yellow-500/90 shadow-[0_0_45px_rgba(245,215,110,0.9)] sm:h-12 sm:w-12 md:h-14 md:w-14 md:rounded-3xl"
             initial={{ scale: 0.85, opacity: 0, rotate: -6 }}
             animate={{ scale: [1, 1.05, 1.02, 1], opacity: 1, rotate: 0 }}
             whileHover={{ scale: 1.08, rotate: 2 }}
@@ -139,7 +139,7 @@ const Navbar = () => {
           id="mobile-site-nav"
           className="border-t border-slate-800/80 bg-slate-950/90 px-4 pb-4 pt-3 backdrop-blur-xl sm:px-5 md:px-6 lg:px-8"
         >
-          <div className="mx-auto w-full max-w-[88rem] space-y-3">
+          <div className="mx-auto w-full max-w-352 space-y-3">
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {navItems.map((item) => {
                 const isActive =
