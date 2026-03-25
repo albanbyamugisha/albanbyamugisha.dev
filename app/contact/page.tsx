@@ -15,7 +15,7 @@ const CONTACT_OPTIONS = [
   {
     label: "GitHub",
     value: "github.com/albanbyaugisha",
-    helper: "See what I&apos;m experimenting with, and how I structure real code.",
+    helper: "See what I'm experimenting with, and how I structure real code.",
   },
   {
     label: "LinkedIn",
@@ -33,11 +33,11 @@ export default function ContactPage() {
             Contact
           </p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-50 md:text-3xl">
-            Let&apos;s build something thoughtful together.
+            Let's build something thoughtful together.
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-slate-200">
-            Whether you&apos;re exploring a new product, strengthening an existing system, or
-            simply want to discuss architecture and engineering practice, I&apos;m open to{" "}
+            Whether you're exploring a new product, strengthening an existing system, or
+            simply want to discuss architecture and engineering practice, I'm open to{" "}
             <span className="font-medium text-amber-100">
               meaningful, well-scoped collaborations
             </span>
