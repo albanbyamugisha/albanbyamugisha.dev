@@ -10,7 +10,7 @@
 
 **Designing and developing scalable, secure software systems & modern web applications**
 
-[🌐 Live Demo](https://www.albanbyamugisha.dev) • [📧 Contact](mailto:byamugisha.alban@gmail.com) • [👤 GitHub](https://github.com/albanbyamugisha) • [💼 LinkedIn](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
+[🌐 Live Demo](https://www.albanbyamugisha.vercel.app) • [📧 Contact](mailto:albanbyamugisha@gmail.com) • [👤 GitHub](https://github.com/albanbyamugisha) • [💼 LinkedIn](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
 
 </div>
 
@@ -300,10 +300,10 @@ If you'd like to use this portfolio as a template for your own, feel free to for
 Principal-level software engineer focused on designing scalable systems, secure architectures, and modern web applications.
 
 ### Connect With Me
-- **Portfolio**: [albanbyamugisha.dev](https://www.albanbyamugisha.dev)
+- **Portfolio**: [albanbyamugisha.vercel.app](https://www.albanbyamugisha.vercel.app)
 - **GitHub**: [@albanbyamugisha](https://github.com/albanbyamugisha)
 - **LinkedIn**: [Byamugisha Alban](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
-- **Email**: [byamugisha.alban@gmail.com](mailto:byamugisha.alban@gmail.com)
+- **Email**: [albanbyamugisha@gmail.com](mailto:albanbyamugisha@gmail.com)
 - **Phone**: +256 748 611 252
 - **Location**: Western Region, Uganda
 
@@ -322,5 +322,7 @@ Principal-level software engineer focused on designing scalable systems, secure 
 ### 🌟 If you find this portfolio valuable, consider giving it a star!
 
 **Made with ❤️ and engineered with intention.**
+
+**⚡ Crafted with a gold-standard engineering mindset.**
 
 </div>
