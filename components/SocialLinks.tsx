@@ -45,7 +45,7 @@ const links = [
   {
     id: "discord",
     icon: FaDiscord,
-    href: "https://discord.com/users/albanbyamugisha",
+    href: "https://discord.com/users/1412842818451275880",
     label: "Discord",
   },
   {
