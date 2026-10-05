@@ -4,7 +4,7 @@ import SectionOrbit from "@/components/SectionOrbit";
 const CONTACT_OPTIONS = [
   {
     label: "Email",
-    value: "albanbyaugisha@gmail.com",
+    value: "albanbyamugisha@gmail.com",
     helper: "Best for detailed project briefs, collaboration ideas, and formal opportunities.",
   },
   {
@@ -14,7 +14,7 @@ const CONTACT_OPTIONS = [
   },
   {
     label: "GitHub",
-    value: "github.com/albanbyaugisha",
+    value: "github.com/albanbyamugisha",
     helper: "See what I'm experimenting with, and how I structure real code.",
   },
   {
