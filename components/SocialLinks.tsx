@@ -21,7 +21,7 @@ const links = [
   {
     id: "github",
     icon: FaGithub,
-    href: "https://github.com/albanbyaugisha",
+    href: "https://github.com/albanbyamugisha",
     label: "GitHub",
   },
   {
@@ -33,31 +33,31 @@ const links = [
   {
     id: "youtube",
     icon: FaYoutube,
-    href: "https://www.youtube.com/@albanbyaugisha",
+    href: "https://www.youtube.com/@albanbyamugisha",
     label: "YouTube",
   },
   {
     id: "telegram",
     icon: FaTelegram,
-    href: "https://t.me/albanbyaugisha",
+    href: "https://t.me/albanbyamugisha",
     label: "Telegram",
   },
   {
     id: "discord",
     icon: FaDiscord,
-    href: "https://discord.com/users/albanbyaugisha",
+    href: "https://discord.com/users/albanbyamugisha",
     label: "Discord",
   },
   {
     id: "x",
     icon: FaXTwitter,
-    href: "https://x.com/albanbyaugisha",
+    href: "https://x.com/albanbyamugisha",
     label: "X",
   },
   {
     id: "instagram",
     icon: FaInstagram,
-    href: "https://instagram.com/albanbyaugisha",
+    href: "https://instagram.com/albanbyamugisha",
     label: "Instagram",
   },
   {
