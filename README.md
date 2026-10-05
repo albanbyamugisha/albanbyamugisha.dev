@@ -10,7 +10,7 @@
 
 **Designing and developing scalable, secure software systems & modern web applications**
 
-[🌐 Live Demo](https://www.albanbyamugisha.vercel.app) • [📧 Contact](mailto:albanbyamugisha@gmail.com) • [👤 GitHub](https://github.com/albanbyamugisha) • [💼 LinkedIn](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
+[🌐 Live Demo](https://albanbyamugisha.vercel.app) • [📧 Contact](mailto:albanbyamugisha@gmail.com) • [👤 GitHub](https://github.com/albanbyamugisha) • [💼 LinkedIn](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
 
 </div>
 
