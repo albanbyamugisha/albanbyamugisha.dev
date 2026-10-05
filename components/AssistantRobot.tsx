@@ -179,7 +179,7 @@ const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     summary:
       "The Contact page provides collaboration channels and typical engagement types.",
     facts: [
-      "Email: albanbyaugisha@gmail.com",
+      "Email: albanbyamugisha@gmail.com",
       `Phone / WhatsApp: ${PROFILE.phone}`,
       "GitHub and LinkedIn links are provided for technical and professional collaboration.",
     ],
@@ -354,7 +354,7 @@ const generateResponse = (input: string): ResponseMeta => {
     text.includes("linkedin")
   ) {
     return {
-      text: `You can reach Alban via email at albanbyaugisha@gmail.com, phone/WhatsApp at ${PROFILE.phone}, GitHub at github.com/albanbyaugisha, and LinkedIn at linkedin.com/in/byamugisha-alban-3140bb37a.`,
+      text: `You can reach Alban via email at albanbyamugisha@gmail.com, phone/WhatsApp at ${PROFILE.phone}, GitHub at github.com/albanbyamugisha, and LinkedIn at linkedin.com/in/byamugisha-alban-3140bb37a.`,
       delayMs: 320,
     };
   }
