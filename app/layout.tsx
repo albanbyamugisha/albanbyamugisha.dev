@@ -45,9 +45,9 @@ export default function RootLayout({
       addressCountry: "Uganda",
     },
     sameAs: [
-      "https://github.com/albanbyaugisha",
+      "https://github.com/albanbyamugisha",
       "https://www.linkedin.com/in/byamugisha-alban-3140bb37a",
-      "https://www.youtube.com/@albanbyaugisha",
+      "https://www.youtube.com/@albanbyamugisha",
     ],
   };
 
