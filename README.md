@@ -300,7 +300,7 @@ If you'd like to use this portfolio as a template for your own, feel free to for
 Principal-level software engineer focused on designing scalable systems, secure architectures, and modern web applications.
 
 ### Connect With Me
-- **Portfolio**: [albanbyamugisha.vercel.app](https://www.albanbyamugisha.vercel.app)
+- **Portfolio**: [albanbyamugisha.vercel.app](https://albanbyamugisha.vercel.app)
 - **GitHub**: [@albanbyamugisha](https://github.com/albanbyamugisha)
 - **LinkedIn**: [Byamugisha Alban](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
 - **Email**: [albanbyamugisha@gmail.com](mailto:albanbyamugisha@gmail.com)
