@@ -10,7 +10,7 @@
 
 **Designing and developing scalable, secure software systems & modern web applications**
 
-[🌐 Live Demo](https://albanbyamugisha.vercel.app) • [📧 Contact](mailto:albanbyamugisha@gmail.com) • [👤 GitHub](https://github.com/albanbyamugisha) • [💼 LinkedIn](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
+• [📧 Contact](mailto:albanbyamugisha@gmail.com) • [👤 GitHub](https://github.com/albanbyamugisha) • [💼 LinkedIn](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
 
 </div>
 
@@ -300,7 +300,6 @@ If you'd like to use this portfolio as a template for your own, feel free to for
 Principal-level software engineer focused on designing scalable systems, secure architectures, and modern web applications.
 
 ### Connect With Me
-- **Portfolio**: [albanbyamugisha.vercel.app](https://albanbyamugisha.vercel.app)
 - **GitHub**: [@albanbyamugisha](https://github.com/albanbyamugisha)
 - **LinkedIn**: [Byamugisha Alban](https://www.linkedin.com/in/byamugisha-alban-3140bb37a)
 - **Email**: [albanbyamugisha@gmail.com](mailto:albanbyamugisha@gmail.com)
